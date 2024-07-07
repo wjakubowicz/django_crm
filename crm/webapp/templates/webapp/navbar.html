@@ -1,80 +1,62 @@
-<!---
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Navbar</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Features</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Pricing</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown link
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-</!--->
-
 <nav class="navbar navbar-expand-lg bg-dark justify-content-center">
-  <a class="navbar-brand main-heading" href="{% url '' %}"> &nbsp; Django CRM</a>
 
-  <button
-    class="navbar-toggler"
-    type="button"
-    data-bs-toggle="collapse"
-    data-bs-target="#navbarNavDropdown"
-    aria-controls="navbarNavDropdown"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-  >
-    <span class="navbar-toggler-icon"></span>
-  </button>
+    <a class="navbar-brand main-heading" href="{% url '' %}"> &nbsp; Django CRM</a>
 
-  <div class="collapse navbar-collapse text-center" id="navbarNavDropdown">
-    <ul class="navbar-nav mr-auto">
-      &nbsp; &nbsp; &nbsp;
-      
-      {% if user.is_authenticated %}
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'dashboard' %}">Panel kontrolny &nbsp;<i data-feather="home"></i></a>
-      </li>
+    <div class="collapse navbar-collapse text-center" id="navbarNavDropdown">
+        <ul class="navbar-nav mr-auto">
+            &nbsp; &nbsp; &nbsp;
+            
+            {% if user.is_authenticated %}
 
-      &nbsp; &nbsp; &nbsp;
+            <li class="nav-item"><a class="nav-link" href="{% url 'dashboard' %}">Panel kontrolny &nbsp;<i data-feather="home"></i></a></li>
 
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'user_logout' %}">Wyloguj się &nbsp; <i data-feather="log-out"></i></i></a>
-      </li>
-    </ul>
+            &nbsp; &nbsp; &nbsp;
 
-    {% else %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'user_logout' %}">Wyloguj się &nbsp; <i data-feather="log-out"></i></a></li>
 
-    <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Zarejestruj się &nbsp&nbsp<i data-feather="user-plus"></i></a>
-    </li>
+            {% else %}
 
-    &nbsp; &nbsp; &nbsp;
+            <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Zarejestruj się &nbsp&nbsp<i data-feather="user-plus"></i></a></li>
 
-    <li class="nav-item"><a class="nav-link" href="{% url 'user_login' %}">Zaloguj się &nbsp&nbsp<i data-feather="log-in"></i></a>
-    </li>
+            &nbsp; &nbsp; &nbsp;
 
-    {% endif %}
-  </div>
+            <li class="nav-item"><a class="nav-link" href="{% url 'user_login' %}">Zaloguj się &nbsp&nbsp<i data-feather="log-in"></i></a></li>
+
+            {% endif %}
+
+            &nbsp; &nbsp; &nbsp;
+
+            <!-- Theme Dropdown for All Users -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Motyw &nbsp&nbsp<i data-feather="columns"></i></a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=cerulean">Cerulean</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=cosmo">Cosmo</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=cyborg">Cyborg</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=darkly">Darkly</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=flatly">Flatly</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=journal">Journal</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=litera">Litera</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=lumen">Lumen</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=materia">Materia</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=minty">Minty</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=pulse">Pulse</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=sandstone">Sandstone</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=simplex">Simplex</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=sketchy">Sketchy</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=slate">Slate</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=spacelab">Spacelab</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=superhero">Superhero</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=united">United</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=yeti">Yeti</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=zephyr">Zephyr</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
 </nav>

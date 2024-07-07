@@ -7,7 +7,9 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Django CRM</title>
-        <link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/litera/bootstrap.min.css">
+        {% with request.session.theme as theme %}
+        <link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/{{ theme|default:'litera' }}/bootstrap.min.css">
+        {% endwith %}
         <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
 
     </head>

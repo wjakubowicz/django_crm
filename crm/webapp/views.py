@@ -107,3 +107,9 @@ def delete_record(request, pk):
     record.delete()
     messages.warning(request, 'Usunąłeś rekord!')
     return redirect('dashboard')
+
+
+def change_theme(request):
+    theme = request.GET.get('theme', 'default')
+    request.session['theme'] = theme
+    return redirect(request.META.get('HTTP_REFERER', 'home'))

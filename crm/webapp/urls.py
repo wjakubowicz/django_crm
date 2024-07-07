@@ -15,5 +15,7 @@ urlpatterns = [
     path('record/<int:pk>', views.view_record, name='view_record'),
     path('delete_record/<int:pk>', views.delete_record, name='delete_record'),
     
+    # Other URLs
+    path('change_theme/', views.change_theme, name='change_theme'),
 
 ]

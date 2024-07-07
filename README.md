@@ -8,6 +8,7 @@ Built with Django, it leverages the power of Python's web framework to provide a
 - **Centralized Dashboard**: Provides a unified view of all customer data.
 - **Customer Records Management**: Add, update, view, and delete customer records.
 - **Responsive Design**: Built with Bootstrap, ensuring a seamless experience across all devices.
+- **Multiple UI Themes**: Ability to select and switch between different UI themes.
 
 ## Technologies
 - **Backend**: Django
@@ -15,7 +16,7 @@ Built with Django, it leverages the power of Python's web framework to provide a
 - **Database**: SQLite (default), configurable to PostgreSQL, MySQL, etc.
 
 ## Future Enhancements:
-- Ability to change Bootswatch theme
+- Display a checkmark next to the selected theme
 - Set the date using calendar widget
 - Gather coordinates based on the record's address
 - Display the coordinates on a map with pins at each record address
