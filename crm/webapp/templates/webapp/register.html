@@ -1,0 +1,33 @@
+{% extends 'webapp/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <body>
+        <div class="container bg-light shadow-lg p-3 mb-5 rounded form-layout">
+
+            <h3> Załóż konto </h3>
+            <hr>
+            
+            <form method="POST" autocomplete="off">
+                {% csrf_token %}
+                {{form.username|as_crispy_field}}
+                <br>
+                {{form.password1|as_crispy_field}}
+                <br>
+                {{form.password2|as_crispy_field}}
+                <br>
+                <button type="submit" class="btn btn-primary w-100 btn-block p-2"> Zarejestruj się &nbsp&nbsp<i data-feather="user-plus"></i></a></button>
+            </form>
+
+            <br>
+            <div class="text-center">
+                <p>Masz już konto?</p>
+                <a href="{% url 'user_login' %}"> Zaloguj się </a>
+            </div>
+        </div>
+        <br>
+    </body>
+
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'webapp/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<body>
+    <div class="container bg-light shadow-lg p-3 mb-5 rounded form-layout">
+        <h2>Modyfikuj rekord</h2>
+        <hr>
+        <br>
+
+        <form method="POST" autocomplete="off">
+            {% csrf_token %}
+            {{form|crispy}}
+            <div class="btn-group w-100" role="group">
+                <a href="{% url 'dashboard' %}" class="btn btn-secondary w-50 p-2">Anuluj &nbsp&nbsp<i data-feather="x"></i></a>
+                <button type="submit" class="btn btn-primary w-50 btn-block p-2">Modyfikuj &nbsp&nbsp<i data-feather="edit-3"></i></a></button>
+            </div>
+        </form>
+    </div>
+</body>
+
+{% endblock %}

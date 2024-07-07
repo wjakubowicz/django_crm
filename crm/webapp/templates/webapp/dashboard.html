@@ -1,0 +1,65 @@
+{% extends 'webapp/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h5>Panel kontrolny {{user}}</h5>
+<hr>
+<a class="btn btn-outline-primary btn-md" href="{% url 'create_record' %}">Utwórz nowy rekord&nbsp;&nbsp;<i data-feather="folder-plus"></i></a>
+<hr>
+
+<table class="table table-light table-hover">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Data zakupu</th>
+            <th scope="col">Nazwa produktu</th>
+            <th scope="col">Numer seryjny</th>
+            <th scope="col">Rewizja</th>
+            <th scope="col">Imię i nazwisko klienta</th>
+            <th scope="col">Adres</th>
+            <th scope="col">Nr telefonu</th>
+            <th scope="col">Email</th>
+            <th scope="col">Nazwa aukcyjna</th>
+            <th scope="col">Dodatkowe informacje</th>
+            <th scope="col">Szerokość geograficzna</th>
+            <th scope="col">Długość geograficzna</th>
+            <th scope="col">Data utworzenia</th>
+
+            <th scope="col">Wyświetl</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% if records %}
+            {% for record in records %}
+            <tr>
+                <td>{{record.id}}</td>
+                
+                <td>{{record.purchase_date}}</td>
+                <td>{{record.product_name}}</td>
+                <td>{{record.serial_number}}</td>
+                <td>{{record.revision}}</td>
+                <td>{{record.customer_first_name}} {{record.customer_last_name}}</td>
+                <td>{{record.address_street}} {{record.address_building}}/{{record.address_apartment}}<br>
+                    {{record.address_postal_code}} {{record.address_city}}<br>
+                    {{record.address_country}}
+                </td>
+                <td>{{record.phone_number}}</td>
+                <td>{{record.email}}</td>
+                <td>{{record.auction_name}}</td>
+                <td>{{record.additional_info}}</td>
+                <td>{{record.gps_latitude}}</td>
+                <td>{{record.gps_longitude}}</td>
+                <td>{{record.creation_date}}</td>
+
+                <td>
+                    <a class="btn btn-success btn-md" href="{% url 'view_record' record.id %}"><i data-feather="search"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        {% endif %}
+    </tbody>
+</table>
+
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'webapp/base.html' %}
+
+{% block content %}
+
+<div class="container py-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Rekord {{ record.id }}</h5>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-4">Imię i nazwisko klienta:</dt>
+                <dd class="col-sm-8">{{record.customer_first_name}} {{record.customer_last_name}}</dd>
+
+                <dt class="col-sm-4">Data zakupu:</dt>
+                <dd class="col-sm-8">{{record.purchase_date}}</dd>
+
+                <dt class="col-sm-4">Nazwa produktu:</dt>
+                <dd class="col-sm-8">{{record.product_name}}</dd>
+
+                <dt class="col-sm-4">Numer seryjny:</dt>
+                <dd class="col-sm-8">{{record.serial_number}}</dd>
+
+                <dt class="col-sm-4">Rewizja:</dt>
+                <dd class="col-sm-8">{{record.revision}}</dd>
+
+                <dt class="col-sm-4">Adres:</dt>
+                <dd class="col-sm-8">
+                    {{record.address_street}} {{record.address_building}}/{{record.address_apartment}}<br>
+                    {{record.address_postal_code}} {{record.address_city}}<br>
+                    {{record.address_country}}
+                </dd>
+
+                <dt class="col-sm-4">Nr telefonu:</dt>
+                <dd class="col-sm-8">{{record.phone_number}}</dd>
+
+                <dt class="col-sm-4">Email:</dt>
+                <dd class="col-sm-8">{{record.email}}</dd>
+
+                <dt class="col-sm-4">Nazwa aukcyjna:</dt>
+                <dd class="col-sm-8">{{record.auction_name}}</dd>
+
+                <dt class="col-sm-4">Dodatkowe informacje:</dt>
+                <dd class="col-sm-8">{{record.additional_info}}</dd>
+
+                <dt class="col-sm-4">Szerokość geograficzna:</dt>
+                <dd class="col-sm-8">{{record.gps_latitude}}</dd>
+
+                <dt class="col-sm-4">Długość geograficzna:</dt>
+                <dd class="col-sm-8">{{record.gps_longitude}}</dd>
+
+                <dt class="col-sm-4">Data utworzenia:</dt>
+                <dd class="col-sm-8">{{record.creation_date}}</dd>
+            </dl>
+        </div>
+    </div>
+</div>
+
+<a href="{% url 'dashboard' %}" class="btn btn-outline-secondary">Powrót &nbsp&nbsp<i data-feather="arrow-left"></i></a>
+&nbsp;
+<a href="{% url 'update_record' record.id %}" class="btn btn-outline-info">Modyfikuj &nbsp&nbsp<i data-feather="edit-3"></i></a>
+&nbsp;
+<a href="{% url 'delete_record' record.id %}" class="btn btn-outline-danger">Usuń &nbsp&nbsp<i data-feather="trash-2"></i></a>
+
+{% endblock %}
+
+
+<a href="{% url 'view_record' record.id %}">Wyświetl<i data-feather="search"></i></a>
