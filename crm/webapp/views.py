@@ -1,10 +1,14 @@
-from django.shortcuts import render, redirect
 from .forms import CreateUserForm, LoginForm, CreateRecordForm, UpdateRecordForm
-from django.contrib.auth.models import auth
-from django.contrib.auth import authenticate
+from .models import Record
 from django.contrib import messages
+from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
-from . models import Record
+from django.contrib.auth.models import auth
+from django.shortcuts import render, redirect
+from geopy.exc import GeocoderServiceError
+from geopy.geocoders import ArcGIS
+import time
+
 
 # Home
 def home(request):
@@ -109,7 +113,29 @@ def delete_record(request, pk):
     return redirect('dashboard')
 
 
+# Change theme
 def change_theme(request):
     theme = request.GET.get('theme', 'default')
     request.session['theme'] = theme
     return redirect(request.META.get('HTTP_REFERER', 'home'))
+
+
+# Update GPS coordinates
+@login_required(login_url='user_login')
+def update_record_coordinates(request):
+    geolocator = ArcGIS()
+    records = Record.objects.all()
+    
+    for record in records:
+        address = f"{record.address_street} {record.address_building}/{record.address_apartment}, {record.address_postal_code} {record.address_city}, {record.address_country}"
+        try:
+            location = geolocator.geocode(address)
+            if location:
+                record.gps_latitude = location.latitude
+                record.gps_longitude = location.longitude
+                record.save()
+        except GeocoderServiceError:
+            time.sleep(1)  # delay for 1 second and skip this record or you could retry
+
+    messages.success(request, 'Współrzędne GPS zostały zaktualizowane!')
+    return redirect('dashboard')

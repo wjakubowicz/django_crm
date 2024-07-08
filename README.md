@@ -17,10 +17,14 @@ Built with Django, it leverages the power of Python's web framework to provide a
 
 ## Future Enhancements:
 - Display a checkmark next to the selected theme
-- Better language support and language switching
-- Gather coordinates based on the record's address
-- Display the coordinates on a map with pins at each record address
-- Export to popular document formats (PDF, CSV, XLSX, etc.)
+- Improve language support and enable language switching
+- Display the coordinates on a map with pins at each record's address
+- Export data to popular document formats such as PDF, CSV, and XLSX
+- Enable 2FA login using an authenticator app or a hardware token
+- Log changes made to the database
+- Implement automatic database backup
+- Define user roles and permissions
+- Ensure data encryption
 
 ## Installation
 To get this project up and running on your local machine, follow these steps:
