@@ -14,19 +14,17 @@ Built with Django, it leverages the power of Python's web framework to provide a
 ## Technologies
 - **Backend**: Django
 - **Frontend**: HTML, CSS (Bootstrap), JavaScript
-- **Database**: SQLite (default), configurable to PostgreSQL, MySQL, etc.
-- **Mapping**: Folium for generating interactive maps
-- **Geocoding**: Geopy for converting addresses into geographic coordinates
+- **Database**: SQLite (configurable to PostgreSQL, MySQL, etc.)
 
 ## Future Enhancements:
-- Display a checkmark next to the selected theme
-- Improve language support and enable language switching
-- Export data to popular document formats such as PDF, CSV, and XLSX
-- Enable 2FA login using an authenticator app or a hardware token
-- Log changes made to the database
-- Implement automatic database backup
 - Define user roles and permissions
+- Display a checkmark next to the selected theme
+- Enable 2FA login using an authenticator app or a hardware token
 - Ensure data encryption
+- Export data to popular document formats such as PDF, CSV, and XLSX
+- Implement automatic database backup
+- Improve language support and enable language switching
+- Log changes made to the database
 
 ## Installation
 To get this project up and running on your local machine, follow these steps:
@@ -63,3 +61,10 @@ python manage.py migrate
 ```bash
 python manage.py runserver
 ```
+
+## Used libraries
+- [Folium](https://github.com/python-visualization/folium)
+- [Geopy](https://github.com/geopy/geopy)
+- [jQuery](https://github.com/jquery/jquery)
+- [DataTables](https://github.com/DataTables/DataTablesSrc)
+- [Feather Icons](https://github.com/feathericons/feather)
