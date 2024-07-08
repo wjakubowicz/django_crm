@@ -9,6 +9,7 @@ from geopy.exc import GeocoderServiceError
 from geopy.geocoders import ArcGIS
 import time
 import folium
+from folium import plugins
 
 
 # Home
@@ -142,11 +143,17 @@ def update_record_coordinates(request):
     return redirect('dashboard')
 
 
+# View a map
+@login_required(login_url='user_login')
 def view_map(request):
-    tile_style = request.GET.get('tiles')  # Get the tile style from the request
+    tile_style = request.GET.get('tiles', 'OpenStreetMap')  # Get the tile style from the request
     current_tiles = request.GET.get('tiles', 'default_value')  # Replace 'default_value' with your default tile style
+    clusterize = request.GET.get('clusterize', 'off')  # Get the clusterize option from the request
 
-    m = folium.Map(location=[52.114503, 19.423561], zoom_start=7, tiles=tile_style)  # Create a base map with the selected tile style
+    m = folium.Map(location=[52.114503, 19.423561], zoom_start=7, tiles=tile_style)  # Create a base map with the selected tile style centered on Poland
+
+    if clusterize == 'on':
+        marker_cluster = plugins.MarkerCluster().add_to(m)  # Create a MarkerCluster object
 
     records = Record.objects.all()  # Fetch records from the database
 
@@ -164,14 +171,19 @@ def view_map(request):
         <strong>Nazwa aukcyjna:</strong> {record.auction_name}<br>
         <strong>Dodatkowe informacje:</strong> {record.additional_info}
         """
-        folium.Marker(
+        marker = folium.Marker(
             [record.gps_latitude, record.gps_longitude],
             popup=folium.Popup(info, max_width=450)
-        ).add_to(m)
+        )
+        if clusterize == 'on':
+            marker.add_to(marker_cluster)  # Add the marker to the cluster
+        else:
+            marker.add_to(m)  # Add the marker directly to the map
 
     map_html = m._repr_html_()
     context = {
         'map_html': map_html,
         'current_tiles': current_tiles,
+        'clusterize': clusterize,
     }
     return render(request, 'webapp/view_map.html', context)

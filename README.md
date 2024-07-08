@@ -9,11 +9,14 @@ Built with Django, it leverages the power of Python's web framework to provide a
 - **Customer Records Management**: Add, update, view, and delete customer records.
 - **Responsive Design**: Built with Bootstrap, ensuring a seamless experience across all devices.
 - **Multiple UI Themes**: Ability to select and switch between different UI themes.
+- **Interactive Maps**: View customer locations on an interactive map with options for tile style and marker clustering.
 
 ## Technologies
 - **Backend**: Django
 - **Frontend**: HTML, CSS (Bootstrap), JavaScript
 - **Database**: SQLite (default), configurable to PostgreSQL, MySQL, etc.
+- **Mapping**: Folium for generating interactive maps
+- **Geocoding**: Geopy for converting addresses into geographic coordinates
 
 ## Future Enhancements:
 - Display a checkmark next to the selected theme
@@ -56,7 +59,6 @@ To get this project up and running on your local machine, follow these steps:
 ```bash
 python manage.py migrate
 ```
-
 5. **Run the Server**
 ```bash
 python manage.py runserver

@@ -6,13 +6,35 @@
 <body>
     {{map_html|safe}}
     <hr>
-    <form method="get" action="">
-        <label for="tiles">Wybierz styl mapy:</label>
-        <select name="tiles" id="tiles" onchange="this.form.submit()">
-            <option value="CartoDB dark_matter" {% if current_tiles == "CartoDB dark_matter" %}selected{% endif %}>CartoDB Dark Matter</option>
-            <option value="CartoDB positron" {% if current_tiles == "CartoDB positron" %}selected{% endif %}>CartoDB Positron</option>
-            <option value="OpenStreetMap" {% if current_tiles == "OpenStreetMap" %}selected{% endif %}>OpenStreetMap</option>
-        </select>
+    <form method="get" action="" class="form-inline" id="options-form">
+        <div style="display: flex; align-items: center; white-space: nowrap;">
+            <div class="form-group mb-2" style="display: flex; align-items: center;">
+                <label for="tiles" class="mr-2" style="margin-bottom: 0;">Wybierz styl mapy:</label>
+
+                &nbsp; &nbsp; &nbsp;
+
+                <select name="tiles" id="tiles" class="form-control" onchange="this.form.submit()">
+                    <option value="OpenStreetMap" {% if current_tiles == "OpenStreetMap" %}selected{% endif %}>OpenStreetMap</option>
+                    <option value="CartoDB dark_matter" {% if current_tiles == "CartoDB dark_matter" %}selected{% endif %}>CartoDB Dark Matter</option>
+                    <option value="CartoDB positron" {% if current_tiles == "CartoDB positron" %}selected{% endif %}>CartoDB Positron</option>
+                </select>
+            </div>
+
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+
+            <div class="form-group mb-2 ml-3" style="display: flex; align-items: center;">
+                <div>
+                    <label for="clusterize" class="form-check-label" style="margin-bottom: 0;">Włącz klasteryzację markerów</label>
+                </div>
+
+                &nbsp; &nbsp; &nbsp;
+
+                <div>
+                    <input type="checkbox" name="clusterize" id="clusterize" class="form-check-input" style="width: 24px; height: 24px; margin-left: 8px;" {% if clusterize == "on" %}checked{% endif %} onchange="document.getElementById('options-form').submit();">
+                </div>
+            </div>
+
+        </div>
     </form>
 </body>
 

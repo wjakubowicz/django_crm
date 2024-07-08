@@ -19,6 +19,10 @@
 
             <li class="nav-item"><a class="nav-link" href="{% url 'user_logout' %}">Wyloguj się &nbsp; <i data-feather="log-out"></i></a></li>
 
+            &nbsp; &nbsp; &nbsp;
+
+            <li class="nav-item"><a class="nav-link" href="{% url 'view_map' %}">Wyświetl mapę &nbsp&nbsp<i data-feather="map-pin"></i></a></li>
+
             {% else %}
 
             <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Zarejestruj się &nbsp&nbsp<i data-feather="user-plus"></i></a></li>
@@ -62,10 +66,6 @@
                     <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=zephyr">Zephyr</a></li>
                 </ul>
             </li>
-
-            &nbsp; &nbsp; &nbsp;
-
-            <li class="nav-item"><a class="nav-link" href="{% url 'view_map' %}">Wyświetl mapę &nbsp&nbsp<i data-feather="map-pin"></i></a></li>
         </ul>
     </div>
 </nav>
