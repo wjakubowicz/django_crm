@@ -8,3 +8,9 @@ input[type="text"], input[type="email"], input[type="password"], input[type="num
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Horizontal offset, vertical offset, blur radius, spread radius, color */
     border: none; /* Remove the border if you don't want it */
 }
+
+.progress {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
