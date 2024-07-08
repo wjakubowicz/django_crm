@@ -17,9 +17,6 @@ Built with Django, it leverages the power of Python's web framework to provide a
 
 ## Future Enhancements:
 - Display a checkmark next to the selected theme
-
-## Future Enhancements:
-- Display a checkmark next to the selected theme
 - Better language support and language switching
 - Gather coordinates based on the record's address
 - Display the coordinates on a map with pins at each record address
