@@ -18,4 +18,6 @@ urlpatterns = [
     path('update-coordinates/', views.update_record_coordinates, name='update_coordinates'),
     
     path('change_theme/', views.change_theme, name='change_theme'),
+	
+    path('view_map/', views.view_map, name='view_map')
 ]

@@ -18,7 +18,6 @@ Built with Django, it leverages the power of Python's web framework to provide a
 ## Future Enhancements:
 - Display a checkmark next to the selected theme
 - Improve language support and enable language switching
-- Display the coordinates on a map with pins at each record's address
 - Export data to popular document formats such as PDF, CSV, and XLSX
 - Enable 2FA login using an authenticator app or a hardware token
 - Log changes made to the database
@@ -31,7 +30,7 @@ To get this project up and running on your local machine, follow these steps:
 
 1. **Clone the Repository**
 ```bash
-   git clone https://github.com/your-username/django-crm.git
+   git clone https://github.com/wjakubowicz/django_crm.git
    cd django-crm
 ```
 2. **Set Up a Virtual Environment**

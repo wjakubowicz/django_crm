@@ -1,0 +1,19 @@
+{% extends 'webapp/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<body>
+    {{map_html|safe}}
+    <hr>
+    <form method="get" action="">
+        <label for="tiles">Wybierz styl mapy:</label>
+        <select name="tiles" id="tiles" onchange="this.form.submit()">
+            <option value="CartoDB dark_matter" {% if current_tiles == "CartoDB dark_matter" %}selected{% endif %}>CartoDB Dark Matter</option>
+            <option value="CartoDB positron" {% if current_tiles == "CartoDB positron" %}selected{% endif %}>CartoDB Positron</option>
+            <option value="OpenStreetMap" {% if current_tiles == "OpenStreetMap" %}selected{% endif %}>OpenStreetMap</option>
+        </select>
+    </form>
+</body>
+
+{% endblock %}
