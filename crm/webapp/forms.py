@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
-from django.forms.widgets import PasswordInput, TextInput
+from django.forms.widgets import PasswordInput, TextInput, DateInput
 from django import forms
 from .models import Record
 
@@ -25,6 +25,9 @@ class CreateRecordForm(forms.ModelForm):
         fields = ['purchase_date', 'product_name', 'serial_number', 'revision', 'customer_first_name', 'customer_last_name',
                   'address_street', 'address_building', 'address_apartment', 'address_city', 'address_postal_code', 'address_country',
                   'phone_number', 'email', 'auction_name', 'additional_info', 'gps_latitude', 'gps_longitude']
+        widgets = {
+            'purchase_date': DateInput(attrs={'type': 'date'}),
+        }
 
 
 # Update a record
@@ -34,3 +37,6 @@ class UpdateRecordForm(forms.ModelForm):
         fields = ['purchase_date', 'product_name', 'serial_number', 'revision', 'customer_first_name', 'customer_last_name',
                   'address_street', 'address_building', 'address_apartment', 'address_city', 'address_postal_code', 'address_country',
                   'phone_number', 'email', 'auction_name', 'additional_info', 'gps_latitude', 'gps_longitude']
+        widgets = {
+            'purchase_date': DateInput(attrs={'type': 'date'}),
+        }

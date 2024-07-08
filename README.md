@@ -17,7 +17,7 @@ Built with Django, it leverages the power of Python's web framework to provide a
 
 ## Future Enhancements:
 - Display a checkmark next to the selected theme
-- Set the date using calendar widget
+- Sort record columns in ascending and descending order
 - Gather coordinates based on the record's address
 - Display the coordinates on a map with pins at each record address
 - Better language support and language switching
