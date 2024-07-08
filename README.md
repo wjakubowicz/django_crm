@@ -17,10 +17,13 @@ Built with Django, it leverages the power of Python's web framework to provide a
 
 ## Future Enhancements:
 - Display a checkmark next to the selected theme
-- Sort record columns in ascending and descending order
+
+## Future Enhancements:
+- Display a checkmark next to the selected theme
+- Better language support and language switching
 - Gather coordinates based on the record's address
 - Display the coordinates on a map with pins at each record address
-- Better language support and language switching
+- Export to popular document formats (PDF, CSV, XLSX, etc.)
 
 ## Installation
 To get this project up and running on your local machine, follow these steps:

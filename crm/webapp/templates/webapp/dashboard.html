@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<h5>Panel kontrolny {{user}}</h5>
+<h5>Witaj, {{user}}! 👋</h5>
 <hr>
 <a class="btn btn-outline-primary btn-md" href="{% url 'create_record' %}">Utwórz nowy rekord&nbsp;&nbsp;<i data-feather="folder-plus"></i></a>
 <hr>
@@ -61,5 +61,24 @@
         {% endif %}
     </tbody>
 </table>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Ensure DataTables are loaded
+        if ($.fn.DataTable) {
+            $('.table').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/2.0.8/i18n/pl.json"
+                },
+                "pagingType": "simple_numbers",
+                "pageLength": 10,
+                "lengthChange": true,
+                "lengthMenu": [10, 25, 50, 100]
+            });
+        } else {
+            console.error("DataTable plugin not loaded.");
+        }
+    });
+    </script>
 
 {% endblock %}
