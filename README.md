@@ -16,9 +16,8 @@ Built with Django, it leverages the power of Python's web framework to provide a
 - **Frontend**: HTML, CSS (Bootstrap), JavaScript
 - **Database**: SQLite (configurable to PostgreSQL, MySQL, etc.)
 
-## Future Enhancements:
+## Future Enhancements
 - Define user roles and permissions
-- Display a checkmark next to the selected theme
 - Enable 2FA login using an authenticator app or a hardware token
 - Ensure data encryption
 - Export data to popular document formats such as PDF, CSV, and XLSX

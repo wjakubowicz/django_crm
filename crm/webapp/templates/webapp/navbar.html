@@ -39,31 +39,31 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Motyw &nbsp&nbsp<i data-feather="columns"></i></a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=cerulean">Cerulean</a></li>
-                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=cosmo">Cosmo</a></li>
-                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=cyborg">Cyborg</a></li>
-                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=darkly">Darkly</a></li>
-                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=flatly">Flatly</a></li>
-                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=journal">Journal</a></li>
-                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=litera">Litera</a></li>
-                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=lumen">Lumen</a></li>
-                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=lux">Lux</a></li>
-                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=materia">Materia</a></li>
-                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=minty">Minty</a></li>
-                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=morph">Morph</a></li>
-                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=pulse">Pulse</a></li>
-                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=quartz">Quartz</a></li>
-                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=sandstone">Sandstone</a></li>
-                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=simplex">Simplex</a></li>
-                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=sketchy">Sketchy</a></li>
-                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=slate">Slate</a></li>
-                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=solar">Solar</a></li>
-                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=spacelab">Spacelab</a></li>
-                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=superhero">Superhero</a></li>
-                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=united">United</a></li>
-                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=vapor">Vapor</a></li>
-                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=yeti">Yeti</a></li>
-                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=zephyr">Zephyr</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=cerulean">Cerulean {% if request.session.theme == 'cerulean' %}<i data-feather="check" class="float-end"></i>{% endif %}</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=cosmo">Cosmo {% if request.session.theme == 'cosmo' %}<i data-feather="check" class="float-end"></i>{% endif %}</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=cyborg">Cyborg {% if request.session.theme == 'cyborg' %}<i data-feather="check" class="float-end"></i>{% endif %}</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=darkly">Darkly {% if request.session.theme == 'darkly' %}<i data-feather="check" class="float-end"></i>{% endif %}</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=flatly">Flatly {% if request.session.theme == 'flatly' %}<i data-feather="check" class="float-end"></i>{% endif %}</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=journal">Journal {% if request.session.theme == 'journal' %}<i data-feather="check" class="float-end"></i>{% endif %}</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=litera">Litera {% if request.session.theme == 'litera' %}<i data-feather="check" class="float-end"></i>{% endif %}</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=lumen">Lumen {% if request.session.theme == 'lumen' %}<i data-feather="check" class="float-end"></i>{% endif %}</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=lux">Lux {% if request.session.theme == 'lux' %}<i data-feather="check" class="float-end"></i>{% endif %}</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=materia">Materia {% if request.session.theme == 'materia' %}<i data-feather="check" class="float-end"></i>{% endif %}</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=minty">Minty {% if request.session.theme == 'minty' %}<i data-feather="check" class="float-end"></i>{% endif %}</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=morph">Morph {% if request.session.theme == 'morph' %}<i data-feather="check" class="float-end"></i>{% endif %}</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=pulse">Pulse {% if request.session.theme == 'pulse' %}<i data-feather="check" class="float-end"></i>{% endif %}</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=quartz">Quartz {% if request.session.theme == 'quartz' %}<i data-feather="check" class="float-end"></i>{% endif %}</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=sandstone">Sandstone {% if request.session.theme == 'sandstone' %}<i data-feather="check" class="float-end"></i>{% endif %}</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=simplex">Simplex {% if request.session.theme == 'simplex' %}<i data-feather="check" class="float-end"></i>{% endif %}</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=sketchy">Sketchy {% if request.session.theme == 'sketchy' %}<i data-feather="check" class="float-end"></i>{% endif %}</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=slate">Slate {% if request.session.theme == 'slate' %}<i data-feather="check" class="float-end"></i>{% endif %}</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=solar">Solar {% if request.session.theme == 'solar' %}<i data-feather="check" class="float-end"></i>{% endif %}</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=spacelab">Spacelab {% if request.session.theme == 'spacelab' %}<i data-feather="check" class="float-end"></i>{% endif %}</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=superhero">Superhero {% if request.session.theme == 'superhero' %}<i data-feather="check" class="float-end"></i>{% endif %}</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=united">United {% if request.session.theme == 'united' %}<i data-feather="check" class="float-end"></i>{% endif %}</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=vapor">Vapor {% if request.session.theme == 'vapor' %}<i data-feather="check" class="float-end"></i>{% endif %}</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=yeti">Yeti {% if request.session.theme == 'yeti' %}<i data-feather="check" class="float-end"></i>{% endif %}</a></li>
+                    <li><a class="dropdown-item" href="{% url 'change_theme' %}?theme=zephyr">Zephyr {% if request.session.theme == 'zephyr' %}<i data-feather="check" class="float-end"></i>{% endif %}</a></li>
                 </ul>
             </li>
         </ul>
