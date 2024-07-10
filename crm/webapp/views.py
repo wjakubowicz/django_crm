@@ -10,6 +10,7 @@ from geopy.geocoders import ArcGIS
 import time
 import folium
 from folium import plugins
+from folium.plugins import Fullscreen
 
 
 # Home
@@ -151,6 +152,7 @@ def view_map(request):
     clusterize = request.GET.get('clusterize', 'off')  # Get the clusterize option from the request
 
     m = folium.Map(location=[52.114503, 19.423561], zoom_start=7, tiles=tile_style)  # Create a base map with the selected tile style centered on Poland
+    Fullscreen().add_to(m)   
 
     if clusterize == 'on':
         marker_cluster = plugins.MarkerCluster().add_to(m)  # Create a MarkerCluster object
