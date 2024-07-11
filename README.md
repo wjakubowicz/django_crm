@@ -10,6 +10,8 @@ Built with Django, it leverages the power of Python's web framework to provide a
 - **Responsive Design**: Built with Bootstrap, ensuring a seamless experience across all devices.
 - **Multiple UI Themes**: Ability to select and switch between different UI themes.
 - **Interactive Maps**: View customer locations on an interactive map with options for tile style and marker clustering.
+- **Data Import and Export**: Easily import and export customer data from and to popular formats for seamless integration with other systems.
+- **Event Logging**: Logs user activities including record creation, updates, deletions, data imports and exports, and user authentication with timestamps, action types, and before-and-after states.
 
 ## Technologies
 - **Backend**: Django
@@ -23,7 +25,6 @@ Built with Django, it leverages the power of Python's web framework to provide a
 - Export data to other document formats such as PDF and XLSX  
 - Implement automatic database backup
 - Improve language support and enable language switching
-- Log changes made to the database
 
 ## Installation
 To get this project up and running on your local machine, follow these steps:
@@ -31,7 +32,6 @@ To get this project up and running on your local machine, follow these steps:
 1. **Clone the Repository**
 ```bash
    git clone https://github.com/wjakubowicz/django_crm.git
-   cd django-crm
 ```
 2. **Set Up a Virtual Environment**
 
@@ -54,10 +54,12 @@ To get this project up and running on your local machine, follow these steps:
 
 4. **Migrate Database**
 ```bash
+cd crm
 python manage.py migrate
 ```
 5. **Run the Server**
 ```bash
+cd crm
 python manage.py runserver
 ```
 
@@ -67,3 +69,6 @@ python manage.py runserver
 - [jQuery](https://github.com/jquery/jquery)
 - [DataTables](https://github.com/DataTables/DataTablesSrc)
 - [Feather Icons](https://github.com/feathericons/feather)
+- [django-import-export](https://github.com/django-import-export/django-import-export)
+- [django-crispy-forms](https://github.com/django-crispy-forms/django-crispy-forms)
+- [crispy-bootstrap5](https://github.com/django-crispy-forms/crispy-bootstrap5)

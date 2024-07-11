@@ -1,12 +1,14 @@
 from .forms import CreateUserForm, LoginForm, CreateRecordForm, UpdateRecordForm, ImportDataForm, ExportDataForm
 from .models import Record
-from datetime import datetime
+from datetime import datetime, date
 from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import auth
+from django.forms.models import model_to_dict
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.utils import timezone
 from folium import plugins
 from folium.plugins import Fullscreen
 from geopy.exc import GeocoderServiceError
@@ -15,7 +17,22 @@ from import_export import resources
 from import_export.formats.base_formats import DEFAULT_FORMATS
 from tablib import Dataset
 import folium
+import json
+import logging
 import time
+
+# Configure logging
+logging.basicConfig(level=logging.INFO, filename='crm_events.log', filemode='a',
+                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
+
+
+# Custom JSON Encoder
+class CustomJSONEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, (datetime, date)):
+            return obj.isoformat()
+        return super().default(obj)
 
 
 # Home
@@ -30,6 +47,7 @@ def register(request):
         form = CreateUserForm(request.POST)
         if form.is_valid():
             form.save()
+            logger.info(f'New user registered: {request.user.username}')
             messages.success(request, 'Zarejestrowałeś się!')
             return redirect('user_login')
     
@@ -50,11 +68,21 @@ def user_login(request):
 
             if user is not None:
                 auth.login(request, user)
+                logger.info(f'User logged in: {request.user.username}')
                 messages.success(request, 'Zalogowałeś się!')
+                
                 return redirect('dashboard')
     
     context = {'form': form}
     return render(request, 'webapp/user_login.html', context=context)
+
+
+# Logout a user
+def user_logout(request):
+    logger.info(f"User logged out: {request.user.username}")
+    auth.logout(request)
+    messages.success(request, 'Wylogowałeś się!')
+    return redirect('user_login')
 
 
 # Dashboard
@@ -66,13 +94,6 @@ def dashboard(request):
     return render(request, 'webapp/dashboard.html', context=context)
 
 
-# Logout a user
-def user_logout(request):
-    auth.logout(request)
-    messages.success(request, 'Wylogowałeś się!')
-    return redirect('user_login')
-
-
 # Create a record
 @login_required(login_url='user_login')
 def create_record(request):
@@ -80,7 +101,8 @@ def create_record(request):
     if request.method == 'POST':
         form = CreateRecordForm(request.POST)
         if form.is_valid():
-            form.save()
+            new_record = form.save()
+            logger.info(f"User: {request.user.username} created a new record: {model_to_dict(new_record)}")
             messages.success(request, 'Utworzyłeś rekord!')
             return redirect('dashboard')
         
@@ -94,14 +116,28 @@ def update_record(request, pk):
     record = Record.objects.get(id=pk)
     form = UpdateRecordForm(instance=record)
     if request.method == 'POST':
+        original_record = model_to_dict(record)  # Capture original record
         form = UpdateRecordForm(request.POST, instance=record)
         if form.is_valid():
             form.save()
+            updated_record = model_to_dict(record)  # Capture updated record
+            logger.info(f"User: {request.user.username} updated a record. Original: {json.dumps(original_record, cls=CustomJSONEncoder)}, Updated: {json.dumps(updated_record, cls=CustomJSONEncoder)}")
             messages.info(request, 'Zmodyfikowałeś rekord!')
             return redirect('dashboard')
         
     context = {'form': form}
     return render(request, 'webapp/update_record.html', context=context)
+
+
+# Delete a record
+@login_required(login_url='user_login')
+def delete_record(request, pk):
+    record = Record.objects.get(id=pk)
+    record_dict = model_to_dict(record)
+    record.delete()
+    logger.info(f"User: {request.user.username} deleted a record: {json.dumps(record_dict, cls=CustomJSONEncoder)}")
+    messages.warning(request, 'Usunąłeś rekord!')
+    return redirect('dashboard')
 
 
 # View a record
@@ -110,15 +146,6 @@ def view_record(request, pk):
     all_records = Record.objects.get(id=pk)
     context = {'record': all_records}
     return render(request, 'webapp/view_record.html', context=context)
-
-
-# Delete a record
-@login_required(login_url='user_login')
-def delete_record(request, pk):
-    record = Record.objects.get(id=pk)
-    record.delete()
-    messages.warning(request, 'Usunąłeś rekord!')
-    return redirect('dashboard')
 
 
 # Change theme
@@ -145,6 +172,7 @@ def update_record_coordinates(request):
         except GeocoderServiceError:
             time.sleep(1)  # delay for 1 second and skip this record or you could retry
 
+    logger.info(f"User: {request.user.username} updated GPS coordinates for all records")
     messages.success(request, 'Współrzędne GPS zostały zaktualizowane!')
     return redirect('dashboard')
 
@@ -210,6 +238,7 @@ def import_data(request):
             result = resource.import_data(dataset, dry_run=True)  # Test the data import
             if not result.has_errors():
                 resource.import_data(dataset, dry_run=False)  # Actually import now
+                logger.info(f"User: {request.user.username} imported data from a file")
                 messages.success(request, 'Dane zostały zaimportowane pomyślnie!')
             return redirect('dashboard')
     else:
@@ -229,7 +258,7 @@ def export_data(request):
             response = HttpResponse(file_format.export_data(dataset), content_type=file_format.get_content_type())
             timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')  # Generate timestamp as YYYY-MM-DD_HH-MM-SS
             response['Content-Disposition'] = 'attachment; filename="exported_data_{}.{}"'.format(timestamp, file_format.get_extension())
-            
+            logger.info(f"User: {request.user.username} exported data to a file")
             messages.success(request, 'Dane zostały wyeksportowane pomyślnie!')
             return response
     else:
