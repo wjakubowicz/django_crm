@@ -1,0 +1,48 @@
+{% extends 'webapp/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<body>
+    <div class="container bg-light shadow-lg p-3 mb-5 rounded form-layout">
+        <h2>Eksportuj dane</h2>
+        <br>
+        <hr>
+        <br>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="file_format">Format pliku:</label>
+                {{ form.file_format|as_crispy_field }}
+            </div>
+            <div class="form-group">
+                <label for="columns">Kolumny:</label>
+                <select multiple class="form-control" id="columns" name="columns">
+                    <option value="id">ID</option>
+                    <option value="purchase_date">Data zakupu</option>
+                    <option value="product_name">Nazwa produktu</option>
+                    <option value="serial_number">Numer seryjny</option>
+                    <option value="customer_first_name">Imię klienta</option>
+                    <option value="customer_last_name">Nazwisko klienta</option>
+                    <option value="address_street">Ulica</option>
+                    <option value="address_building">Numer budynku</option>
+                    <option value="address_apartment">Numer mieszkania</option>
+                    <option value="address_postal_code">Kod pocztowy</option>
+                    <option value="address_city">Miasto</option>
+                    <option value="address_country">Kraj</option>
+                    <option value="phone_number">Numer telefonu</option>
+                    <option value="email">Email</option>
+                    <option value="auction_name">Nazwa aukcyjna</option>
+                    <option value="additional_info">Dodatkowe informacje</option>
+                </select>
+            </div>
+            <br>
+            <div class="btn-group w-100" role="group">
+                <a href="{% url 'dashboard' %}" class="btn btn-secondary w-50 p-2">Anuluj &nbsp&nbsp<i data-feather="x"></i></a>
+                <button type="submit" class="btn btn-primary w-50 p-2">Eksportuj &nbsp&nbsp<i data-feather="download"></i></button>
+            </div>
+        </form>
+    </div>
+</body>
+
+{% endblock %}

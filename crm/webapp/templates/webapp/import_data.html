@@ -1,0 +1,31 @@
+{% extends 'webapp/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<body>
+    <div class="container bg-light shadow-lg p-3 mb-5 rounded form-layout">
+        <h2>Importuj dane</h2>
+        <br>
+        <hr>
+        <br>
+        <form method="post" enctype="multipart/form-data" autocomplete="off">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="file_format">Format pliku:</label>
+                {{ form.file_format|as_crispy_field }}
+            </div>
+            <div class="form-group">
+                <label for="import_file">Plik:</label>
+                {{ form.import_file|as_crispy_field }}
+            </div>
+            <br>
+			<div class="btn-group w-100" role="group">
+                <a href="{% url 'dashboard' %}" class="btn btn-secondary w-50 p-2">Anuluj &nbsp&nbsp<i data-feather="x"></i></a>
+                <button type="submit" class="btn btn-primary w-50 p-2">Importuj &nbsp&nbsp<i data-feather="upload"></i></button>
+            </div>
+        </form>
+    </div>
+</body>
+
+{% endblock %}

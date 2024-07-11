@@ -1,16 +1,21 @@
-from .forms import CreateUserForm, LoginForm, CreateRecordForm, UpdateRecordForm
+from .forms import CreateUserForm, LoginForm, CreateRecordForm, UpdateRecordForm, ImportDataForm, ExportDataForm
 from .models import Record
+from datetime import datetime
 from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import auth
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from geopy.exc import GeocoderServiceError
-from geopy.geocoders import ArcGIS
-import time
-import folium
 from folium import plugins
 from folium.plugins import Fullscreen
+from geopy.exc import GeocoderServiceError
+from geopy.geocoders import ArcGIS
+from import_export import resources
+from import_export.formats.base_formats import DEFAULT_FORMATS
+from tablib import Dataset
+import folium
+import time
 
 
 # Home
@@ -189,3 +194,44 @@ def view_map(request):
         'clusterize': clusterize,
     }
     return render(request, 'webapp/view_map.html', context)
+
+
+# Import data
+def import_data(request):
+    if request.method == 'POST':
+        form = ImportDataForm(request.POST, request.FILES)
+        if form.is_valid():
+            resource = resources.modelresource_factory(model=Record)()
+            dataset = Dataset()
+            new_records = request.FILES['import_file']  # Convert form.cleaned_data['file_format'] to an integer index
+            file_format_index = int(form.cleaned_data['file_format'])  # Access the corresponding format class from DEFAULT_FORMATS
+            file_format_class = DEFAULT_FORMATS[file_format_index]()  # Use the format's name when loading data into Tablib
+            imported_data = dataset.load(new_records.read().decode('utf-8'), format=file_format_class.get_title())
+            result = resource.import_data(dataset, dry_run=True)  # Test the data import
+            if not result.has_errors():
+                resource.import_data(dataset, dry_run=False)  # Actually import now
+                messages.success(request, 'Dane zostały zaimportowane pomyślnie!')
+            return redirect('dashboard')
+    else:
+        form = ImportDataForm()
+    return render(request, 'webapp/import_data.html', {'form': form})
+
+
+# Export data
+@login_required(login_url='user_login')
+def export_data(request):
+    if request.method == 'POST':
+        form = ExportDataForm(request.POST)
+        if form.is_valid():
+            resource = resources.modelresource_factory(model=Record)()
+            dataset = resource.export()
+            file_format = DEFAULT_FORMATS[int(form.cleaned_data['file_format'])]()
+            response = HttpResponse(file_format.export_data(dataset), content_type=file_format.get_content_type())
+            timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')  # Generate timestamp as YYYY-MM-DD_HH-MM-SS
+            response['Content-Disposition'] = 'attachment; filename="exported_data_{}.{}"'.format(timestamp, file_format.get_extension())
+            
+            messages.success(request, 'Dane zostały wyeksportowane pomyślnie!')
+            return response
+    else:
+        form = ExportDataForm()
+    return render(request, 'webapp/export_data.html', {'form': form})

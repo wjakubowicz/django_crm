@@ -20,7 +20,7 @@ Built with Django, it leverages the power of Python's web framework to provide a
 - Define user roles and permissions
 - Enable 2FA login using an authenticator app or a hardware token
 - Ensure data encryption
-- Export data to popular document formats such as PDF, CSV, and XLSX
+- Export data to other document formats such as PDF and XLSX  
 - Implement automatic database backup
 - Improve language support and enable language switching
 - Log changes made to the database

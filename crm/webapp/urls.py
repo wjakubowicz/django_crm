@@ -19,5 +19,8 @@ urlpatterns = [
     
     path('change_theme/', views.change_theme, name='change_theme'),
 	
-    path('view_map/', views.view_map, name='view_map')
+    path('view_map/', views.view_map, name='view_map'),
+	
+    path('import_data/', views.import_data, name='import_data'),
+    path('export_data/', views.export_data, name='export_data'),
 ]
