@@ -25,6 +25,8 @@ Built with Django, it leverages the power of Python's web framework to provide a
 - Export data to other document formats such as PDF and XLSX  
 - Implement automatic database backup
 - Improve language support and enable language switching
+- Format the phone number to the international format
+- Autofill the address as the user is typing it 
 
 ## Installation
 To get this project up and running on your local machine, follow these steps:
@@ -72,3 +74,4 @@ python manage.py runserver
 - [django-import-export](https://github.com/django-import-export/django-import-export)
 - [django-crispy-forms](https://github.com/django-crispy-forms/django-crispy-forms)
 - [crispy-bootstrap5](https://github.com/django-crispy-forms/crispy-bootstrap5)
+- [django-phonenumber-field](https://github.com/stefanfoulis/django-phonenumber-field)

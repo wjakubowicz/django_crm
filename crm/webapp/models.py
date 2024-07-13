@@ -1,4 +1,5 @@
 from django.db import models
+from phonenumber_field.modelfields import PhoneNumberField
 
 class Record(models.Model):
     creation_date = models.DateTimeField(auto_now_add=True)
@@ -18,7 +19,7 @@ class Record(models.Model):
     address_postal_code = models.CharField(max_length=100, blank=True)  # Allows blank
     address_country = models.CharField(max_length=100, blank=True)  # Allows blank
 
-    phone_number = models.CharField(max_length=100, blank=True)  # Allows blank
+    phone_number = PhoneNumberField(blank=True, null=True)  # Allows blank
     email = models.EmailField(max_length=100, blank=True)  # Allows blank
 
     auction_name = models.CharField(max_length=100, blank=True)  # Allows blank

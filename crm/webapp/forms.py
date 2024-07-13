@@ -1,18 +1,34 @@
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import AuthenticationForm
-from django.forms.widgets import PasswordInput, TextInput, DateInput
-from django import forms
 from .models import Record
 from django import forms
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from django.forms.widgets import PasswordInput, TextInput, DateInput
 from import_export.formats.base_formats import DEFAULT_FORMATS
+from phonenumber_field.formfields import PhoneNumberField
+from phonenumber_field.widgets import PhoneNumberPrefixWidget
+from phonenumbers import PhoneNumber
+import json
+import phonenumbers
 
+
+class CustomJSONEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, PhoneNumber):
+            # Assuming obj is a string that contains a valid phone number
+            parsed_number = phonenumbers.parse(str(obj), None)
+            # Format the number with the international format that includes the country code
+            formatted_number = phonenumbers.format_number(parsed_number, phonenumbers.PhoneNumberFormat.INTERNATIONAL)
+            return formatted_number
+        return super().default(obj)
+    
 
 # Register/create a new user
 class CreateUserForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'password1', 'password2']
+
 
 # Login a user
 class LoginForm(AuthenticationForm):
@@ -21,7 +37,8 @@ class LoginForm(AuthenticationForm):
 
 
 # Create a record
-class CreateRecordForm(forms.ModelForm):
+class CreateRecordForm(forms.ModelForm): 
+    phone_number = PhoneNumberField(widget=PhoneNumberPrefixWidget(), required=False)
     class Meta:
         model = Record
         fields = ['purchase_date', 'product_name', 'serial_number', 'revision', 'customer_first_name', 'customer_last_name',
@@ -34,6 +51,7 @@ class CreateRecordForm(forms.ModelForm):
 
 # Update a record
 class UpdateRecordForm(forms.ModelForm):
+    phone_number = PhoneNumberField(widget=PhoneNumberPrefixWidget(), required=False)
     class Meta:
         model = Record
         fields = ['purchase_date', 'product_name', 'serial_number', 'revision', 'customer_first_name', 'customer_last_name',

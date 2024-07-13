@@ -16,6 +16,8 @@ from geopy.geocoders import ArcGIS
 from import_export import resources
 from import_export.formats.base_formats import DEFAULT_FORMATS
 from tablib import Dataset
+from phonenumbers import PhoneNumber  # Import the PhoneNumber class
+import phonenumbers
 import folium
 import json
 import logging
@@ -23,7 +25,7 @@ import time
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, filename='crm_events.log', filemode='a',
-                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', encoding='utf-8')
 logger = logging.getLogger(__name__)
 
 
@@ -32,6 +34,12 @@ class CustomJSONEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, (datetime, date)):
             return obj.isoformat()
+        elif isinstance(obj, PhoneNumber):
+            # Assuming obj is a string that contains a valid phone number
+            parsed_number = phonenumbers.parse(str(obj), None)
+            # Format the number with the international format that includes the country code
+            formatted_number = phonenumbers.format_number(parsed_number, phonenumbers.PhoneNumberFormat.INTERNATIONAL)
+            return formatted_number
         return super().default(obj)
 
 
