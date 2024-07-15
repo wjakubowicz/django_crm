@@ -12,6 +12,7 @@ Built with Django, it leverages the power of Python's web framework to provide a
 - **Interactive Maps**: View customer locations on an interactive map with options for tile style and marker clustering.
 - **Data Import and Export**: Easily import and export customer data from and to popular formats for seamless integration with other systems.
 - **Event Logging**: Logs user activities including record creation, updates, deletions, data imports and exports, and user authentication with timestamps, action types, and before-and-after states.
+- **Address suggestions**: Enhances user input with address suggestions using Nominatim
 
 ## Technologies
 - **Backend**: Django
@@ -26,7 +27,6 @@ Built with Django, it leverages the power of Python's web framework to provide a
 - Implement automatic database backup
 - Improve language support and enable language switching
 - Format the phone number to the international format
-- Autofill the address as the user is typing it 
 
 ## Installation
 To get this project up and running on your local machine, follow these steps:
@@ -46,7 +46,7 @@ To get this project up and running on your local machine, follow these steps:
 - For macOS and Linux:
 ```bash
   python3 -m venv virt
-  source venv/bin/activate
+  source virt/bin/activate
 ```
 
 3. **Install Dependencies**

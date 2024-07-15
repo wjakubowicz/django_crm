@@ -37,7 +37,7 @@ class LoginForm(AuthenticationForm):
 
 
 # Create a record
-class CreateRecordForm(forms.ModelForm): 
+class CreateRecordForm(forms.ModelForm):
     phone_number = PhoneNumberField(widget=PhoneNumberPrefixWidget(), required=False)
     class Meta:
         model = Record

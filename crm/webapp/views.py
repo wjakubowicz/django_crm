@@ -8,7 +8,6 @@ from django.contrib.auth.models import auth
 from django.forms.models import model_to_dict
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.utils import timezone
 from folium import plugins
 from folium.plugins import Fullscreen
 from geopy.exc import GeocoderServiceError
@@ -22,6 +21,10 @@ import folium
 import json
 import logging
 import time
+from django.http import JsonResponse
+import requests
+from django.views.decorators.http import require_GET
+from django.core.cache import cache
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, filename='crm_events.log', filemode='a',
@@ -105,7 +108,6 @@ def dashboard(request):
 # Create a record
 @login_required(login_url='user_login')
 def create_record(request):
-    form = CreateRecordForm()
     if request.method == 'POST':
         form = CreateRecordForm(request.POST)
         if form.is_valid():
@@ -113,7 +115,9 @@ def create_record(request):
             logger.info(f"User: {request.user.username} created a new record: {model_to_dict(new_record)}")
             messages.success(request, 'Utworzyłeś rekord!')
             return redirect('dashboard')
-        
+    else:
+        form = CreateRecordForm()
+    
     context = {'form': form}
     return render(request, 'webapp/create_record.html', context=context)
 
@@ -272,3 +276,37 @@ def export_data(request):
     else:
         form = ExportDataForm()
     return render(request, 'webapp/export_data.html', {'form': form})
+
+
+# Nominatim search
+@require_GET
+def nominatim_search(request):
+    query = request.GET.get('q', '')
+    
+    if not query:
+        return JsonResponse({'error': 'No query provided'}, status=400)
+    
+    # Check if the result is in cache
+    cache_key = f'nominatim_search_{query}'
+    cached_result = cache.get(cache_key)
+    if cached_result:
+        return JsonResponse(cached_result, safe=False)
+    
+    url = f"https://nominatim.openstreetmap.org/search?format=json&q={query}"
+    headers = {
+        'User-Agent': 'YourAppName/1.0 (your@email.com)'
+    }
+    
+    try:
+        response = requests.get(url, headers=headers, timeout=10)
+        response.raise_for_status()
+        data = response.json()
+        
+        # Cache the result for 1 hour
+        cache.set(cache_key, data, 3600)
+        
+        return JsonResponse(data, safe=False)
+    except requests.RequestException as e:
+        return JsonResponse({'error': f"Failed to fetch data from Nominatim: {str(e)}"}, status=500)
+    except Exception as e:
+        return JsonResponse({'error': f"An unexpected error occurred: {str(e)}"}, status=500)
