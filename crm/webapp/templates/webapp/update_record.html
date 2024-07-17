@@ -18,7 +18,10 @@
                 <input type="text" id="address-search" class="form-control">
                 <ul id="address-results" class="list-group mt-2" style="display: none;"></ul>
             </div>
-            
+
+            <br>
+            <br>
+
             {{form|crispy}}
             <div class="btn-group w-100" role="group">
                 <a href="{% url 'dashboard' %}" class="btn btn-secondary w-50 p-2">Anuluj &nbsp&nbsp<i data-feather="x"></i></a>
@@ -49,11 +52,13 @@
                         console.log('AJAX success, data:', data);
                         addressResults.empty();
                         if (data.length > 0) {
-                            data.forEach(function(item) {
-                                addressResults.append(`<li class="list-group-item" data-address="${item.display_name}" data-lat="${item.lat}" data-lon="${item.lon}">${item.display_name}</li>`);
+                            data.forEach(function(item, index) {
+                                addressResults.append(`<li class="list-group-item" data-index="${index}">${item.display_name}</li>`);
                             });
                             console.log('Showing results');
                             addressResults.show();
+                            // Store the full data array in a data attribute on the parent element
+                            addressResults.data('fullAddressData', data);
                         } else {
                             console.log('No results, hiding dropdown');
                             addressResults.hide();
@@ -71,41 +76,39 @@
     
         // Handle click on address result
         addressResults.on('click', 'li', function() {
-            const selectedAddress = $(this).data('address');
-            const lat = $(this).data('lat');
-            const lon = $(this).data('lon');
+            const index = $(this).data('index');
+            const fullAddressData = addressResults.data('fullAddressData');
+            const addressData = fullAddressData[index];
+            console.log('Selected address data:', addressData);
     
             // Fill in the address search field
-            addressSearch.val(selectedAddress);
+            addressSearch.val(addressData.display_name);
     
             // Fill in other form fields
-            fillAddressFields(selectedAddress, lat, lon);
+            fillAddressFields(addressData);
     
             // Hide the results
             addressResults.hide();
         });
     
-        function fillAddressFields(address, lat, lon) {
-            // Split the address into components
-            const components = address.split(', ');
-    
-            // Attempt to fill in fields based on address components
-            // Note: This is a basic implementation and may need to be adjusted based on the exact format of addresses returned by Nominatim
-            $('input[name="address_street"]').val(components[0] || '');
-            $('input[name="address_city"]').val(components[components.length - 3] || '');
-            $('input[name="address_postal_code"]').val(components[components.length - 2] || '');
-            $('input[name="address_country"]').val(components[components.length - 1] || '');
+        function fillAddressFields(addressData) {
+            // Fill in fields based on address components
+            $('input[name="address_street"]').val(addressData.address.road || '');
+            $('input[name="address_city"]').val(addressData.address.city || addressData.address.town || addressData.address.village || '');
+            $('input[name="address_postal_code"]').val(addressData.address.postcode || '');
+            $('input[name="address_country"]').val(addressData.address.country || '');
     
             // Fill in GPS coordinates
-            $('input[name="gps_latitude"]').val(lat);
-            $('input[name="gps_longitude"]').val(lon);
+            $('input[name="gps_latitude"]').val(addressData.lat);
+            $('input[name="gps_longitude"]').val(addressData.lon);
     
-            // Clear other address fields that we don't have specific data for
-            $('input[name="address_building"]').val('');
-            $('input[name="address_apartment"]').val('');
+            // Fill in other address fields if available
+            $('input[name="address_building"]').val(addressData.address.house_number || '');
+            $('input[name="address_apartment"]').val(''); // Nominatim doesn't provide apartment number
     
             console.log('Address fields filled');
         }
     });
-    </script>
+</script>
+
 {% endblock %}

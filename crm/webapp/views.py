@@ -5,26 +5,25 @@ from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import auth
+from django.core.cache import cache
 from django.forms.models import model_to_dict
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
+from django.views.decorators.http import require_GET
 from folium import plugins
 from folium.plugins import Fullscreen
 from geopy.exc import GeocoderServiceError
 from geopy.geocoders import ArcGIS
 from import_export import resources
 from import_export.formats.base_formats import DEFAULT_FORMATS
+from phonenumbers import PhoneNumber
 from tablib import Dataset
-from phonenumbers import PhoneNumber  # Import the PhoneNumber class
-import phonenumbers
 import folium
 import json
 import logging
-import time
-from django.http import JsonResponse
+import phonenumbers
 import requests
-from django.views.decorators.http import require_GET
-from django.core.cache import cache
+import time
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, filename='crm_events.log', filemode='a',
@@ -292,7 +291,7 @@ def nominatim_search(request):
     if cached_result:
         return JsonResponse(cached_result, safe=False)
     
-    url = f"https://nominatim.openstreetmap.org/search?format=json&q={query}"
+    url = f"https://nominatim.openstreetmap.org/search?format=json&q={query}&addressdetails=1"
     headers = {
         'User-Agent': 'YourAppName/1.0 (your@email.com)'
     }
