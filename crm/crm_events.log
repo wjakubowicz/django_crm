@@ -1,2 +1,4 @@
-2024-07-16 19:55:55,509 - django.utils.autoreload - INFO - D:\django_crm\crm\webapp\views.py changed, reloading.
-2024-07-16 19:56:07,861 - django.utils.autoreload - INFO - D:\django_crm\crm\webapp\views.py changed, reloading.
+2024-07-23 00:15:05,954 - webapp.views - INFO - User logged in: kierownik
+2024-07-23 00:17:14,375 - django.request - WARNING - Not Found: /favicon.ico
+2024-07-23 00:17:20,700 - webapp.views - INFO - User logged in: kierownik
+2024-07-23 00:39:25,659 - django.utils.autoreload - INFO - D:\django_crm\virt\Lib\site-packages\win32\lib\pywin32_bootstrap.py changed, reloading.

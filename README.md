@@ -11,6 +11,7 @@ Built with Django, it leverages the power of Python's web framework to provide a
 - **Multiple UI Themes**: Ability to select and switch between different UI themes.
 - **Interactive Maps**: View customer locations on an interactive map with options for tile style and marker clustering.
 - **Data Import and Export**: Easily import and export customer data from and to popular formats for seamless integration with other systems.
+- **PDF Printing**: Generate and print PDF documents directly
 - **Event Logging**: Logs user activities including record creation, updates, deletions, data imports and exports, and user authentication with timestamps, action types, and before-and-after states.
 - **Address suggestions**: Enhances user input with address suggestions using Nominatim
 
@@ -23,10 +24,10 @@ Built with Django, it leverages the power of Python's web framework to provide a
 - Define user roles and permissions
 - Enable 2FA login using an authenticator app or a hardware token
 - Ensure data encryption
-- Export data to other document formats such as PDF and XLSX  
 - Implement automatic database backup
 - Improve language support and enable language switching
 - Format the phone number to the international format
+- Implement the option to export the map to PDF
 
 ## Installation
 To get this project up and running on your local machine, follow these steps:

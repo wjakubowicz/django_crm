@@ -7,11 +7,16 @@
 <hr>
 <a class="btn btn-outline-primary btn-md" href="{% url 'create_record' %}">Utwórz nowy rekord&nbsp;&nbsp;<i data-feather="folder-plus"></i></a>
 &nbsp;&nbsp;&nbsp;
-<a class="btn btn-outline-warning btn-md" href="{% url 'export_data' %}">Eksportuj dane&nbsp;&nbsp;<i data-feather="download"></i></a>
+&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;
 <a class="btn btn-outline-warning btn-md" href="{% url 'import_data' %}">Importuj dane&nbsp;&nbsp;<i data-feather="upload"></i></a>
 &nbsp;&nbsp;&nbsp;
+<a class="btn btn-outline-warning btn-md" href="{% url 'export_data' %}">Eksportuj dane&nbsp;&nbsp;<i data-feather="download"></i></a>
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;
 <a class="btn btn-outline-secondary btn-md" href="{% url 'update_coordinates' %}">Aktualizuj współrzędne GPS&nbsp;&nbsp;<i data-feather="globe"></i></a>
+
 <hr>
 
 <table class="table table-light table-hover">
@@ -73,11 +78,33 @@
         // Ensure DataTables are loaded
         if ($.fn.DataTable) {
             $('.table').DataTable({
-                language: {url: 'https://cdn.datatables.net/plug-ins/2.0.8/i18n/pl.json'},
+                language: {url: 'https://cdn.datatables.net/plug-ins/2.1.0/i18n/pl.json'},
                 "pagingType": "simple_numbers",
                 "pageLength": 10,
                 "lengthChange": true,
-                "lengthMenu": [10, 25, 50, 100]
+                "lengthMenu": [10, 25, 50, 100],
+                layout: {
+                    topStart: {
+                        buttons: [
+                        'copy',
+                        'print',
+                        {
+                            extend: 'spacer',
+                            style: 'bar',
+                            text: 'Eksportuj:'
+                        },
+                        'csv',
+                        'excel',
+                        'pdf',
+                        {
+                            extend: 'spacer',
+                            style: 'bar',
+                            text: 'Liczba rekordów:'
+                        },
+                        'pageLength'
+                        ]
+                    }
+                }
             });
         } else {
             console.error("DataTable plugin not loaded.");

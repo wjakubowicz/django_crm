@@ -1,7 +1,6 @@
 from .models import Record
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
 from django.forms.widgets import PasswordInput, TextInput, DateInput
 from import_export.formats.base_formats import DEFAULT_FORMATS
@@ -10,7 +9,6 @@ from phonenumber_field.widgets import PhoneNumberPrefixWidget
 from phonenumbers import PhoneNumber
 import json
 import phonenumbers
-
 
 class CustomJSONEncoder(json.JSONEncoder):
     def default(self, obj):
