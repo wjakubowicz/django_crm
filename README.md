@@ -22,7 +22,6 @@ Built with Django, it leverages the power of Python's web framework to provide a
 
 ## Future Enhancements
 - Define user roles and permissions
-- Enable 2FA login using an authenticator app or a hardware token
 - Ensure data encryption
 - Implement automatic database backup
 - Improve language support and enable language switching
@@ -76,3 +75,4 @@ python manage.py runserver
 - [django-crispy-forms](https://github.com/django-crispy-forms/django-crispy-forms)
 - [crispy-bootstrap5](https://github.com/django-crispy-forms/crispy-bootstrap5)
 - [django-phonenumber-field](https://github.com/stefanfoulis/django-phonenumber-field)
+- [django-two-factor-auth](https://github.com/jazzband/django-two-factor-auth)

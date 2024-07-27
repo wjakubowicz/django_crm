@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from django.urls import include
+from two_factor.urls import urlpatterns as tf_urls
 
 urlpatterns = [
     path('', views.home, name=''),
@@ -7,7 +9,9 @@ urlpatterns = [
     path('register', views.register, name='register'),
     path('user_login', views.user_login, name='user_login'),
     path('user_logout', views.user_logout, name='user_logout'),
-    
+	
+    path('', include(tf_urls)),
+
     path('dashboard', views.dashboard, name='dashboard'),
     
     path('create_record', views.create_record, name='create_record'),

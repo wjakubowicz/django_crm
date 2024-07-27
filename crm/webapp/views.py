@@ -92,11 +92,11 @@ def user_logout(request):
     logger.info(f"User logged out: {request.user.username}")
     auth.logout(request)
     messages.success(request, 'Wylogowałeś się!')
-    return redirect('user_login')
+    return redirect('two_factor:login')
 
 
 # Dashboard
-@login_required(login_url='user_login')
+@login_required(login_url='two_factor:login')
 def dashboard(request):
     my_records = Record.objects.all()
 
@@ -122,7 +122,7 @@ def create_record(request):
 
 
 # Update a record
-@login_required(login_url='user_login')
+@login_required(login_url='two_factor:login')
 def update_record(request, pk):
     record = Record.objects.get(id=pk)
     form = UpdateRecordForm(instance=record)
@@ -141,7 +141,7 @@ def update_record(request, pk):
 
 
 # Delete a record
-@login_required(login_url='user_login')
+@login_required(login_url='two_factor:login')
 def delete_record(request, pk):
     record = Record.objects.get(id=pk)
     record_dict = model_to_dict(record)
@@ -152,7 +152,7 @@ def delete_record(request, pk):
 
 
 # View a record
-@login_required(login_url='user_login')
+@login_required(login_url='two_factor:login')
 def view_record(request, pk):
     all_records = Record.objects.get(id=pk)
     context = {'record': all_records}
@@ -167,7 +167,7 @@ def change_theme(request):
 
 
 # Update GPS coordinates
-@login_required(login_url='user_login')
+@login_required(login_url='two_factor:login')
 def update_record_coordinates(request):
     geolocator = ArcGIS()
     records = Record.objects.all()
@@ -189,7 +189,7 @@ def update_record_coordinates(request):
 
 
 # View a map
-@login_required(login_url='user_login')
+@login_required(login_url='two_factor:login')
 def view_map(request):
     tile_style = request.GET.get('tiles', 'OpenStreetMap')  # Get the tile style from the request
     current_tiles = request.GET.get('tiles', 'default_value')  # Replace 'default_value' with your default tile style
@@ -236,6 +236,7 @@ def view_map(request):
 
 
 # Import data
+@login_required(login_url='two_factor:login')
 def import_data(request):
     if request.method == 'POST':
         form = ImportDataForm(request.POST, request.FILES)
@@ -258,7 +259,7 @@ def import_data(request):
 
 
 # Export data
-@login_required(login_url='user_login')
+@login_required(login_url='two_factor:login')
 def export_data(request):
     if request.method == 'POST':
         form = ExportDataForm(request.POST)

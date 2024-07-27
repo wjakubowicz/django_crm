@@ -43,6 +43,12 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
 	'import_export',
 	'phonenumber_field',
+	'django_otp',
+	'django_otp.plugins.otp_totp',
+	'django_otp.plugins.otp_static',
+	'two_factor.plugins.yubikey',
+	'two_factor',
+	'otp_yubikey',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
@@ -57,6 +63,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+	'django_otp.middleware.OTPMiddleware',
 ]
 
 ROOT_URLCONF = 'crm.urls'
@@ -143,3 +150,7 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_URL = 'two_factor:login'
+
+LOGIN_REDIRECT_URL = 'dashboard'

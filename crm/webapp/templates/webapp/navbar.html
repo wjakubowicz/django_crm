@@ -13,11 +13,15 @@
             
             {% if user.is_authenticated %}
 
-            <li class="nav-item"><a class="nav-link" href="{% url 'dashboard' %}">Panel kontrolny &nbsp;<i data-feather="home"></i></a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'dashboard' %}">Panel kontrolny &nbsp&nbsp<i data-feather="home"></i></a></li>
 
             &nbsp; &nbsp; &nbsp;
 
-            <li class="nav-item"><a class="nav-link" href="{% url 'user_logout' %}">Wyloguj się &nbsp; <i data-feather="log-out"></i></a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'user_logout' %}">Wyloguj się &nbsp&nbsp<i data-feather="log-out"></i></a></li>
+
+            &nbsp; &nbsp; &nbsp;
+
+            <li class="nav-item"><a class="nav-link" href="{% url 'two_factor:profile' %}">Ustawienia 2FA &nbsp&nbsp<i data-feather="lock"></i></a></li>
 
             &nbsp; &nbsp; &nbsp;
 
@@ -29,7 +33,7 @@
 
             &nbsp; &nbsp; &nbsp;
 
-            <li class="nav-item"><a class="nav-link" href="{% url 'user_login' %}">Zaloguj się &nbsp&nbsp<i data-feather="log-in"></i></a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'two_factor:login' %}">Zaloguj się &nbsp&nbsp<i data-feather="log-in"></i></a></li>
 
             {% endif %}
 

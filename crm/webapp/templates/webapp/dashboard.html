@@ -75,33 +75,70 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // Ensure DataTables are loaded
         if ($.fn.DataTable) {
             $('.table').DataTable({
-                language: {url: 'https://cdn.datatables.net/plug-ins/2.1.0/i18n/pl.json'},
-                "pagingType": "simple_numbers",
-                "pageLength": 10,
-                "lengthChange": true,
-                "lengthMenu": [10, 25, 50, 100],
+                language: { url: 'https://cdn.datatables.net/plug-ins/2.1.0/i18n/pl.json' },
+                pagingType: "simple_numbers",
+                pageLength: 10,
+                lengthChange: true,
+                lengthMenu: [10, 25, 50, 100],
+                autoWidth: true,
                 layout: {
                     topStart: {
                         buttons: [
-                        'copy',
-                        'print',
-                        {
-                            extend: 'spacer',
-                            style: 'bar',
-                            text: 'Eksportuj:'
-                        },
-                        'csv',
-                        'excel',
-                        'pdf',
-                        {
-                            extend: 'spacer',
-                            style: 'bar',
-                            text: 'Liczba rekordów:'
-                        },
-                        'pageLength'
+                            'copy',
+                            'print',
+                            {
+                                extend: 'spacer',
+                                style: 'bar',
+                                text: 'Eksportuj:'
+                            },
+                            'csv',
+                            'excel',
+                            {
+                                extend: 'pdf',
+                                text: 'PDF',
+                                exportOptions: {
+                                    columns: ':not(:nth-last-child(-n+2))'
+                                },
+                                customize: function(doc) {
+                                    var tableNode = $('.table')[0];
+                                    var width = $(tableNode).width();
+                                    var height = $(tableNode).height();
+                                    var ratio = width / height;
+
+                                    var pageSize = ratio > 1 ? 'A4' : 'LETTER';
+                                    var orientation = ratio > 1 ? 'landscape' : 'portrait';
+
+                                    doc.pageSize = pageSize;
+                                    doc.pageOrientation = orientation;
+
+                                    var fontSize = Math.min(10, Math.max(14, Math.floor(width / 75)));
+                                    doc.defaultStyle.fontSize = fontSize;
+                                    doc.styles.tableHeader.fontSize = fontSize + 2;
+
+                                    // Remove fixed column widths for PDF export
+                                    delete doc.content[1].table.widths;
+
+                                    doc.pageMargins = [15, 15, 15, 15];
+
+                                    // Add page count at the bottom
+                                    doc['footer'] = (currentPage, pageCount) => {
+                                        return {
+                                            columns: [
+                                                { text: 'Strona ' + currentPage.toString() + ' z ' + pageCount, alignment: 'center' }
+                                            ],
+                                            margin: [15, -15, 15, 15]
+                                        };
+                                    };
+                                }
+                            },
+                            {
+                                extend: 'spacer',
+                                style: 'bar',
+                                text: 'Liczba rekordów:'
+                            },
+                            'pageLength'
                         ]
                     }
                 }

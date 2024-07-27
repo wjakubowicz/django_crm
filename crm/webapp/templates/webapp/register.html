@@ -22,9 +22,11 @@
             </form>
 
             <br>
+            <br>
+            
             <div class="text-center">
                 <p>Masz już konto?</p>
-                <a href="{% url 'user_login' %}"> Zaloguj się </a>
+                <a href="{% url 'two_factor:login' %}" class="btn btn-primary w-100 btn-block p-2">Zaloguj się &nbsp&nbsp<i data-feather="log-in"></i></a>
             </div>
         </div>
         <br>
