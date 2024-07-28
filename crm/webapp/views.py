@@ -5,7 +5,9 @@ from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import auth
+from django.contrib.auth.signals import user_logged_in, user_login_failed
 from django.core.cache import cache
+from django.dispatch import receiver
 from django.forms.models import model_to_dict
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
@@ -18,6 +20,7 @@ from import_export import resources
 from import_export.formats.base_formats import DEFAULT_FORMATS
 from phonenumbers import PhoneNumber
 from tablib import Dataset
+from two_factor.signals import user_verified
 import folium
 import json
 import logging
@@ -48,6 +51,27 @@ class CustomJSONEncoder(json.JSONEncoder):
 # Home
 def home(request):
     return render(request, 'webapp/index.html')
+
+
+# Two-factor authentication signal
+@receiver(user_verified)
+def log_user_verified(sender, request, user, **kwargs):
+    logger.info(f'User verified with 2FA: {user.username}')
+    messages.success(request, 'Zalogowałeś się używając 2FA!')
+
+
+# User login signal
+@receiver(user_logged_in)
+def log_user_logged_in(sender, request, user, **kwargs):
+    logger.info(f'User logged in: {user.username}')
+    messages.success(request, 'Zalogowałeś się!')
+
+
+# User login failed signal
+@receiver(user_login_failed)
+def log_user_login_failed(sender, request, credentials, **kwargs):
+    logger.warning(f'User login failed: {credentials["username"]}')
+    messages.error(request, 'Nieprawidłowe dane logowania!')
 
 
 # Register a user

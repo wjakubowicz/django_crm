@@ -3,6 +3,7 @@ Babel==2.15.0
 branca==0.7.2
 certifi==2024.7.4
 charset-normalizer==3.3.2
+colorama==0.4.6
 crispy-bootstrap5==2024.2
 diff-match-patch==20230430
 Django==5.0.7
@@ -10,7 +11,10 @@ django-appconf==1.0.6
 django-crispy-forms==2.3
 django-formtools==2.5.1
 django-import-export==4.1.1
-django-phonenumber-field==8.0.0
+django-otp==1.5.1
+django-otp-yubikey==1.1.0
+django-phonenumber-field==7.3.0
+django-two-factor-auth==1.16.0
 folium==0.17.0
 geographiclib==2.0
 geopy==2.4.1
@@ -22,11 +26,16 @@ packaging==24.1
 phonenumbers==8.13.40
 pip==24.1.2
 pipdeptree==2.23.1
+pycryptodome==3.20.0
+pypng==0.20220715.0
 python-dateutil==2.9.0.post0
+qrcode==7.4.2
 requests==2.32.3
 six==1.16.0
 sqlparse==0.5.1
 tablib==3.6.1
+typing_extensions==4.12.2
 tzdata==2024.1
 urllib3==2.2.2
 xyzservices==2024.6.0
+YubiOTP==1.0.0

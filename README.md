@@ -5,15 +5,16 @@ Built with Django, it leverages the power of Python's web framework to provide a
 
 ## Key Features
 - **Secure User Management**: Ensures authorized access with login, registration, and password handling.
+- **2FA Login**: Implements two-factor authentication for enhanced security.
 - **Centralized Dashboard**: Provides a unified view of all customer data.
 - **Customer Records Management**: Add, update, view, and delete customer records.
 - **Responsive Design**: Built with Bootstrap, ensuring a seamless experience across all devices.
 - **Multiple UI Themes**: Ability to select and switch between different UI themes.
 - **Interactive Maps**: View customer locations on an interactive map with options for tile style and marker clustering.
 - **Data Import and Export**: Easily import and export customer data from and to popular formats for seamless integration with other systems.
-- **PDF Printing**: Generate and print PDF documents directly
+- **PDF Printing**: Generate and print PDF documents directly.
 - **Event Logging**: Logs user activities including record creation, updates, deletions, data imports and exports, and user authentication with timestamps, action types, and before-and-after states.
-- **Address suggestions**: Enhances user input with address suggestions using Nominatim
+- **Address suggestions**: Enhances user input with address suggestions using Nominatim.
 
 ## Technologies
 - **Backend**: Django
