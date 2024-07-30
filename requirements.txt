@@ -14,6 +14,7 @@ django-import-export==4.1.1
 django-otp==1.5.1
 django-otp-yubikey==1.1.0
 django-phonenumber-field==7.3.0
+django-pwa==2.0.0
 django-two-factor-auth==1.16.0
 folium==0.17.0
 geographiclib==2.0
@@ -24,7 +25,7 @@ MarkupSafe==2.1.5
 numpy==2.0.0
 packaging==24.1
 phonenumbers==8.13.40
-pip==24.1.2
+pip==24.2
 pipdeptree==2.23.1
 pycryptodome==3.20.0
 pypng==0.20220715.0

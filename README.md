@@ -14,7 +14,8 @@ Built with Django, it leverages the power of Python's web framework to provide a
 - **Data Import and Export**: Easily import and export customer data from and to popular formats for seamless integration with other systems.
 - **PDF Printing**: Generate and print PDF documents directly.
 - **Event Logging**: Logs user activities including record creation, updates, deletions, data imports and exports, and user authentication with timestamps, action types, and before-and-after states.
-- **Address suggestions**: Enhances user input with address suggestions using Nominatim.
+- **Address Suggestions**: Enhances user input with address suggestions using Nominatim.
+- **Progressive Web App Functionality**: Enhance the user experience by enabling PWA functionality, allowing the CRM system to be installed and accessed like a native app on supported devices.
 
 ## Technologies
 - **Backend**: Django
@@ -77,3 +78,4 @@ python manage.py runserver
 - [crispy-bootstrap5](https://github.com/django-crispy-forms/crispy-bootstrap5)
 - [django-phonenumber-field](https://github.com/stefanfoulis/django-phonenumber-field)
 - [django-two-factor-auth](https://github.com/jazzband/django-two-factor-auth)
+- [django-pwa](https://github.com/silviolleite/django-pwa)

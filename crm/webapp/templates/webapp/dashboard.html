@@ -76,6 +76,9 @@
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         if ($.fn.DataTable) {
+
+            var isSmallScreen = window.innerWidth < 1080;
+
             $('.table').DataTable({
                 language: { url: 'https://cdn.datatables.net/plug-ins/2.1.0/i18n/pl.json' },
                 pagingType: "simple_numbers",
@@ -83,6 +86,7 @@
                 lengthChange: true,
                 lengthMenu: [10, 25, 50, 100],
                 autoWidth: true,
+                scrollX: isSmallScreen,
                 layout: {
                     topStart: {
                         buttons: [
